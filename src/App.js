@@ -13,7 +13,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      color: 'red',
+      // color: 'red',
       letters: {
         a: false,
         b: false,
