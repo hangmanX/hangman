@@ -11,8 +11,6 @@ button {
   background-color: lightblue;
 }
 
-
-
 .letterButton {
   margin-top: 2%;
   background-color: blueviolet;
@@ -32,7 +30,6 @@ button {
   /* width: 50%; */
   margin-left: 10%;
   margin-right: 10%
-
 }
 
 #answerViewer {
@@ -60,20 +57,13 @@ h1 {
   text-align: center;
   background-color: burlywood;
   border: 5px solid #dac292;
-  
-  
 }
 
 .letterButtons {
   display: table;
   text-align: center;
-
 }
 
 .letterButton:hover {
   box-shadow: 2px 2px darkgray;
 }
-
-
-
-
