@@ -4,8 +4,8 @@ const sequelize = new Sequelize('postgres://qidyetsfvczuwx:800b76c38416b1cf8f677
   dialect: 'postgres',
   protocol: 'postgres',
   dialectOptions: {
-      ssl: true
-  }
+    ssl: true,
+  },
 });
 
 sequelize.sync({ logging: false }).then(() => {

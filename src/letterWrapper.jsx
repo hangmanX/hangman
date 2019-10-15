@@ -1,27 +1,21 @@
-import React, { Component } from "react";
-import LetterSelector from './letterSelector'
-import AnswerViewer from './answerViewer'
+/* eslint-disable linebreak-style */
+// ^wtf is this rule...
+import React, { Component } from 'react';
+import LetterSelector from './letterSelector';
+import AnswerViewer from './answerViewer';
 
-class LetterWrapper extends Component {
-  constructor(props) {
-    super(props)
-  }
-
-  render() {
-    return (
-      <div className="letterWrapper">
-        <AnswerViewer 
-        answer={this.props.answer}
-        disp={this.props.disp}
-        />
-        <LetterSelector 
-        letters={this.props.letters} 
-        disp={this.props.disp}
-        letterClicked ={this.props.letterClicked}
-        />
-      </div>
-    )
-  }
-}
+const LetterWrapper = (props) => (
+  <div className="letterWrapper">
+    <AnswerViewer
+      answer={props.answer}
+      disp={props.disp}
+    />
+    <LetterSelector
+      letters={props.letters}
+      disp={props.disp}
+      letterClicked={props.letterClicked}
+    />
+  </div>
+);
 
 export default LetterWrapper;

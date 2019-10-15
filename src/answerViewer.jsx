@@ -1,27 +1,28 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-class AnswerViewer extends Component {
-  constructor(props) {
-    super(props)
+const AnswerViewer = (props) => {
+  console.log('disp is', props.disp);
+
+  // generate our array of string characters
+  const dispCharArray = [];
+  for (let i = 0; i < props.disp.length; i += 1) {
+    dispCharArray.push(
+      <span
+        className="answerLetter"
+        key={`answer_letter${i}`}
+      >
+        {props.disp[i]}
+
+      </span>,
+    );
   }
 
-  render() {
-    console.log('disp is', this.props.disp);
-
-    // generate our array of string characters
-    let dispCharArray = [];
-    for (let i = 0; i < this.props.disp.length; i += 1) {
-      dispCharArray.push(<span
-        className='answerLetter'
-        key={'answer_letter'+ i}>{this.props.disp[i]}</span>)
-    }
-
-    return (
+  return (
     <div id="answerViewer">
-      {this.props.disp}
+      {props.disp}
     </div>
-    )
-  }
-}
+  );
+};
+
 
 export default AnswerViewer;
