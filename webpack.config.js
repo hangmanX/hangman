@@ -28,7 +28,7 @@ module.exports = {
     contentBase: path.join(__dirname, 'public/'),
     port: 3000,
     publicPath: 'http://localhost:3000/dist/',
-    // hotOnly: true,
+    hot: true,
     proxy: {
       // https://webpack.js.org/configuration/dev-server/#devserver-proxy
       // return true for the context which means for all endpoints, proxy to the target

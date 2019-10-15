@@ -10,7 +10,7 @@ const LetterSelector = (props) => {
   // generate buttons for each letter
   const letterButtonArr = [];
   for (let i = 0; i < letterArr.length; i += 1) {
-    console.log(letterObj[letterArr[i]]);
+    console.log('letter obj in letterSelector.jsx', letterObj[letterArr[i]]);
     letterButtonArr.push(
       <button
         type="button"
