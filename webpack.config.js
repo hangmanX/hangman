@@ -26,7 +26,8 @@ module.exports = {
   },
   devServer: {
     contentBase: path.join(__dirname, 'public/'),
-    port: 3000,
+    // !DEFAULT PORT IS 8080
+    // port: 3000,
     publicPath: 'http://localhost:3000/dist/',
     hot: true,
     proxy: {
@@ -34,7 +35,8 @@ module.exports = {
       // return true for the context which means for all endpoints, proxy to the target
       // the index also had to be set
       context: () => true,
-      target: 'http://localhost:80',
+      // !Original port was 80
+      target: 'http://localhost:3000',
     },
     // proxy: {
     //   '/api': {
