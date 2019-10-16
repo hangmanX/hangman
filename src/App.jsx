@@ -2,10 +2,10 @@
 import React, { Component } from 'react';
 import { hot } from 'react-hot-loader';
 import io from 'socket.io-client';
-import './App.css';
-import LetterWrapper from './letterWrapper';
-import Clue from './clue';
-import HangViewer from './hangViewer';
+import './styles/App.css';
+import LetterWrapper from './containers/letterWrapper';
+import Clue from './components/clue';
+import HangViewer from './components/hangViewer';
 
 // https://codeburst.io/isomorphic-web-app-react-js-express-socket-io-e2f03a469cd3
 
