@@ -30,21 +30,20 @@ module.exports = {
     // port: 3000,
     publicPath: 'http://localhost:3000/dist/',
     hot: true,
-    proxy: {
-      // https://webpack.js.org/configuration/dev-server/#devserver-proxy
-      // return true for the context which means for all endpoints, proxy to the target
-      // the index also had to be set
-      context: () => true,
-      // !Original port was 80
-      target: 'http://localhost:3000',
-    },
     // proxy: {
-    //   '/api': {
-    //     target: "http://localhost:4000",
-    //     changeOrigin: true,
-    //   }
-
+    //   // https://webpack.js.org/configuration/dev-server/#devserver-proxy
+    //   // return true for the context which means for all endpoints, proxy to the target
+    //   // the index also had to be set
+    //   context: () => true,
+    //   // !Original port was 80
+    //   target: 'http://localhost:3000',
     // },
+    proxy: {
+      '/api': {
+        target: "http://localhost:3000",
+        changeOrigin: true,
+      }
+    },
     disableHostCheck: true,
   },
   plugins: [new webpack.HotModuleReplacementPlugin()],

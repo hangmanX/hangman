@@ -2,7 +2,12 @@ const cookieController = {};
 const User = require('../models/userModel');
 
 cookieController.setUserIDCookie = (req, res, next) => {
-  res.cookie('userid', JSON.stringify(res.locals.userID), { encode: String, httpOnly: true });
+  const { id } = res.locals.userProfile;
+  const { token } = res.locals;
+  res.cookie('userid', id, { encode: String, httpOnly: true });
+  // Could possibly use the token to autorize users to go in rooms?
+  // Rooms would be available to Annonymous Users as well
+  res.cookie('token', token, { httpOnly: true });
   return next();
 };
 
