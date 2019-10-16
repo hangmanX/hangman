@@ -31,6 +31,12 @@
     "css-loader": "^1.0.1",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-react-hooks": "^1.7.0",
     "jest": "^24.9.0",
     "style-loader": "^0.23.1",
     "supertest": "^4.0.2",
@@ -43,13 +49,20 @@
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
+    "mongoose": "^5.7.5",
     "node-fetch": "^2.6.0",
     "nodemon": "^1.19.3",
     "pg": "^7.12.1",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-hot-loader": "^4.12.15",
+<<<<<<< HEAD
     "react-router-dom": "^5.1.2",
+=======
+    "react-redux": "^7.1.1",
+    "redux": "^4.0.4",
+    "redux-devtools-extension": "^2.13.8",
+>>>>>>> 26b90bd9327ff252ecdc6236e9e874d5828c2705
     "sequelize": "^5.19.6",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0"
