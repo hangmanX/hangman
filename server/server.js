@@ -24,13 +24,14 @@ app.get('/api/auth/github/callback',
   authController.getUserProfile,
   authController.createUser,
   cookieController.setUserIDCookie,
-  authController.redirectAfterLogin);
+  authController.redirectAfterLogin
+);
 
 // For Build
 // For adding a new remote to heroku : heroku git:remote -a hangmanx-cs
 // push the branch adam-rajeeb/heroku-deployment to heroku remote's master branch : git push heroku adam-rajeeb/heroku-deployment:master
 app.use('/dist', express.static(path.resolve(__dirname, '../dist')));
-app.use('/', (req, res, next) => {
+app.get('/', (req, res, next) => {
   res.sendFile(path.resolve(__dirname, '../public/index.html'));
 });
 
