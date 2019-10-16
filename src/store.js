@@ -16,7 +16,7 @@ import reducers from './reducers/index';
 // we are adding composeWithDevTools here to get easy access to the Redux dev tools
 const store = createStore(
   reducers,
-  composeWithDevTools(), // gives access to devtools?
+  composeWithDevTools(), // gives access to devtools
 );
 
 export default store;
