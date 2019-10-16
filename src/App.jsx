@@ -35,12 +35,6 @@ class App extends Component {
         r: false,
         s: false,
         t: false,
-        o: false,
-        p: false,
-        q: false,
-        r: false,
-        s: false,
-        t: false,
         u: false,
         v: false,
         w: false,
@@ -87,7 +81,7 @@ class App extends Component {
 
   componentDidMount() {
     this.socket.on('connect', () => {
-      console.log('connected');
+      // console.log('connected to socket');
     });
 
     this.socket.on('clickedLetter', (e) => {
@@ -124,7 +118,7 @@ class App extends Component {
   }
 
   gameEnded() {
-    console.log('triggered');
+    console.log('game ended triggered');
     // check for failure case
     const maxFailedGuesses = this.state.hang.length - 1;
     console.log('max failed gusses', maxFailedGuesses);
@@ -132,7 +126,7 @@ class App extends Component {
       alert(' game over');
     }
     // check for success case
-    if (this.state.disp.join('') == this.state.answer.join('')) {
+    if (this.state.disp.join('') === this.state.answer.join('')) {
       alert('success');
     }
   }
@@ -196,11 +190,3 @@ class App extends Component {
 }
 
 export default hot(module)(App);
-
-/**
- *  "serve": "nodemon server/server.js",
-    "dev": "npm run serve & webpack-dev-server --mode development --open",
-    "start": "node server/server.js",
-    "build": "webpack --mode production",
-    "test": "echo \"Error: no test specified\" && exit 1"
- */
