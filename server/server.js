@@ -70,9 +70,20 @@ server.listen(PORT, () => {
   console.log('** FOR DEPLOYMENT, SWITCH TO REGULAR NODE **')
 });
 
+const gameRooms = ['a', 'b', 'c']
+
 io.on('connection', (socket) => {
+  socket.emit('loadRooms', gameRooms)
+  console.log("SOCKET ID", socket.id)
+  socket.on('joinRoom', (room) => console.log('JOINED ROOM', room))
   socket.on('clickedLetter', (letter) => {
     console.log('recived', letter);
     io.sockets.emit('clickedLetter', letter);
   });
+
+//   io.of('/').in(room).emit('newUser', 'New Player has joined the ' + room)
+
+  
 });
+
+// io.of('/').on('connection', socket => {})

@@ -6,6 +6,8 @@ import './App.css';
 import LetterWrapper from './letterWrapper';
 import Clue from './clue';
 import HangViewer from './hangViewer';
+import { Route, Link } from 'react-router-dom'
+import Splash from './Splash.jsx'
 
 // https://codeburst.io/isomorphic-web-app-react-js-express-socket-io-e2f03a469cd3
 
@@ -76,7 +78,7 @@ class App extends Component {
     };
     this.gameEnded = this.gameEnded.bind(this);
     this.letterClicked = this.letterClicked.bind(this);
-    this.socket = io.connect('https://hangmanx-cs.herokuapp.com');
+    this.socket = io.connect('http://localhost:3000');
   }
 
   componentDidMount() {
@@ -164,22 +166,31 @@ class App extends Component {
       document.body.style.backgroundColor = col;
     });
 
+    this.socket.on('loadRooms', (data)=>{
+      console.log('ROOMS', data)
+    })
     return (
-      <div className="App">
-        <a href="https://github.com/login/oauth/authorize?client_id=6299af3a88a73b2fd148">Login with Github</a>
-        <h1>Hangman X</h1>
-        <Clue clue={this.state.clue} />
-        <HangViewer
-          hang={this.state.hang}
-          numFailedGuesses={this.state.numFailedGuesses}
-        />
-        <LetterWrapper
-          letters={this.state.letters}
-          letterClicked={this.letterClicked}
-          answer={this.state.answer}
-          disp={this.state.disp}
-        />
-      </div>
+      <React.Fragment>
+        <Route exact path="/" component={Splash}/>
+
+        <Route path="/game/:id">
+          <div className="App">
+            <a href="https://github.com/login/oauth/authorize?client_id=6299af3a88a73b2fd148">Login with Github</a>
+            <h1>Hangman X</h1>
+            <Clue clue={this.state.clue} />
+            <HangViewer
+              hang={this.state.hang}
+              numFailedGuesses={this.state.numFailedGuesses}
+            />
+            <LetterWrapper
+              letters={this.state.letters}
+              letterClicked={this.letterClicked}
+              answer={this.state.answer}
+              disp={this.state.disp}
+            />
+          </div>
+        </Route>
+      </React.Fragment>
     );
   }
 }
