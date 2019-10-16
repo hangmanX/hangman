@@ -1,7 +1,13 @@
 // https://socket.io/docs/
 const path = require('path');
 const express = require('express');
-const mongoFunctions = require('./mongoController');
+const mongoFunctions = require('./controllers/mongoController');
+const mongoose = require('mongoose');
+
+mongoose.connect("mongodb+srv://Michael:check@cluster0-liyfw.mongodb.net/hang_man?retryWrites=true&w=majority");
+mongoose.connection.once('open', () => {
+  console.log('Connected to mongo database');
+});
 
 const app = express();
 const server = require('http').Server(app);
@@ -11,11 +17,11 @@ const fetch = require('node-fetch');
 
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+// !Original Port was 80
+const PORT = process.env.PORT || 3000;
 
-const PORT = process.env.PORT || 88;
-
-const authController = require('./authController.js');
-const cookieController = require('./cookieController.js');
+const authController = require('./controllers/authController.js');
+const cookieController = require('./controllers/cookieController.js');
 
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -25,21 +31,24 @@ app.get('/api/auth/github/callback',
   authController.getUserProfile,
   authController.createUser,
   cookieController.setUserIDCookie,
-  authController.redirectAfterLogin);
+  authController.redirectAfterLogin
+);
 
 // For Build
 // For adding a new remote to heroku : heroku git:remote -a hangmanx-cs
 // push the branch adam-rajeeb/heroku-deployment to heroku remote's master branch : git push heroku adam-rajeeb/heroku-deployment:master
 app.use('/dist', express.static(path.resolve(__dirname, '../dist')));
-app.get('/testing', mongoFunctions.getNewQandA, (req, res, next) => {
-  res.status(300).send('went through testing route');
+
+app.get('/newPrompt', mongoFunctions.getNewQandA, (req, res, next) => {
+  res.status(300).send(res.locals.newQuestion);
+  return next();
 });
 
-app.use('/', (req, res, next) => {
-  //console.log('generic git request')
+app.get('/user/profile', cookieController.getInfofromCookie);
+
+app.get('/', (req, res, next) => {
   res.sendFile(path.resolve(__dirname, '../public/index.html'));
 });
-app.get('/user/profile', cookieController.getInfofromCookie);
 
 /**
  * @name GLOBAL ROUTE HANDLER

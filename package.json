@@ -8,7 +8,7 @@
     "prestart": "npm run build",
     "build": "NODE_ENV=development webpack --mode production",
     "dev": "NODE_ENV=development nodemon server/server.js & webpack-dev-server --open",
-    "test": "jest"
+    "test": "jest --verbose"
   },
   "repository": {
     "type": "git",
@@ -43,6 +43,7 @@
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
+    "mongoose": "^5.7.5",
     "node-fetch": "^2.6.0",
     "nodemon": "^1.19.3",
     "pg": "^7.12.1",

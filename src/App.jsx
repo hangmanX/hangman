@@ -81,7 +81,7 @@ class App extends Component {
 
   componentDidMount() {
     this.socket.on('connect', () => {
-      // console.log('connected to socket');
+      console.log('connected to socket');
     });
 
     this.socket.on('clickedLetter', (e) => {
@@ -118,10 +118,8 @@ class App extends Component {
   }
 
   gameEnded() {
-    console.log('game ended triggered');
     // check for failure case
     const maxFailedGuesses = this.state.hang.length - 1;
-    console.log('max failed gusses', maxFailedGuesses);
     if (this.state.numFailedGuesses === maxFailedGuesses) {
       alert(' game over');
     }
@@ -136,7 +134,6 @@ class App extends Component {
   letterClicked(e) {
     this.socket.emit('clickedLetter', e);
 
-    console.log('letter clicked was:', e);
     // https://stackoverflow.com/questions/43638938/updating-an-object-with-setstate-in-react
 
     if (this.state.answer.includes(e)) {
@@ -149,7 +146,6 @@ class App extends Component {
           });
         }
       }
-      console.log('this letter is in apple: ', e);
     }
     // else {
     //   this.setState({numFailedGuesses: this.state.numFailedGuesses+1})
@@ -163,7 +159,6 @@ class App extends Component {
   }
 
   render() {
-    console.log('letters state after rendering is', this.state.letters);
 
     this.socket.on('changeColor', (col) => {
       document.body.style.backgroundColor = col;
