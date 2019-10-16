@@ -1,5 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+/* eslint-disable no-undef */
+/* eslint-disable react/jsx-filename-extension */
+// this is entry point for webpack
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import React from 'react';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import App from './App';
+import store from './store';
+
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root'),
+);

@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Clue = (props) => (
+const Clue = ({ clue }) => (
   <div className="clue">
-    {props.clue}
+    {clue}
   </div>
 );
 
