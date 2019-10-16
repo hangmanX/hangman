@@ -15,6 +15,7 @@ const LetterSelector = (props) => {
         disabled={letterObj[letterArr[i]] ? 'disabled' : null}
         onClick={
           () => {
+            // console.log(letterArr[i]);
             props.letterClicked(letterArr[i]);
           }
         }

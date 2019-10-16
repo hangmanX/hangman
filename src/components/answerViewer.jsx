@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 
 const AnswerViewer = (props) => {
+  // console.log('answer viewer props', props);
+
   // generate our array of string characters
   const dispCharArray = [];
   for (let i = 0; i < props.disp.length; i += 1) {
     dispCharArray.push(
       <span
         className="answerLetter"
-        key={`answer_letter${i}`}
+        key={i}
       >
         {props.disp[i]}
 

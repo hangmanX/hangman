@@ -17,5 +17,4 @@ const LetterWrapper = (props) => (
     />
   </div>
 );
-
 export default LetterWrapper;

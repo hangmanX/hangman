@@ -2,32 +2,23 @@
 
 import * as types from '../constants/actionTypes';
 
+// old
+const gameStore = [
+  [['It is the thing you might cut yourself on if you reach out to touch the world like a ball'],
+    ['m', 'o', 'u', 'n', 't', 'a', 'i', 'n']],
+  [["It's breezy."],
+    ['f', 'l', 'i', 'g', 'h', 't', 'y']],
+  [['It hangs in the sky, before it falls, but you do not want to avoid it.'],
+    ['a', 'p', 'p', 'l', 'e']],
+];
+
 // set up initial state
 const initialState = {
   letters: {}, // tracks which letters have been clicked
   dbQuestion: 'It is the thing you might cut yourself on if you reach out to touch the world like a ball',
   dbAnswer: ['m', 'o', 'u', 'n', 't', 'a', 'i', 'n'],
-  inputLetters: [], // array of dashes...
-  // gameStore: [
-  //   [['It is the thing you might cut yourself on if you reach out to
-  // touch the world like a ball'],
-  //     ['m', 'o', 'u', 'n', 't', 'a', 'i', 'n'],
-  //     ['_', '_', '_', '_', '_', '_', '_', '_']],
-
-
-  //   [["It's breezy."],
-  //     ['f', 'l', 'i', 'g', 'h', 't', 'y'],
-  //     ['_', '_', '_', '_', '_', '_', '_']],
-
-
-  //   [['It hangs in the sky, before it falls, but you do not want to avoid it.'],
-  //     ['a', 'p', 'p', 'l', 'e'],
-  //     ['_', '_', '_', '_', '_']],
-  // ],
-  // clue: 'loading', // dummy...?
-  answer: [], // wtf is this
-  disp: [], // displayed characters that have been clicked?...
-  hang: [
+  displayAnswer: [], // old disp
+  hangingPrompts: [
     "I'm having a great day and nothing can go wrong.",
     "Who? Me? I didn't do anything.",
     "Oh. What's that?",
@@ -39,21 +30,61 @@ const initialState = {
     'Glugg.',
     'The End,',
   ],
-  numFailedGuesses: 0,
+  numberOfFailedGuesses: 0,
 };
 
-for (let i = 65; i < 91; i += 1) {
+for (let i = 97; i < 123; i += 1) {
   initialState.letters[String.fromCharCode(i)] = false;
 }
-console.log('init state', initialState);
+initialState.dbAnswer.forEach(() => initialState.displayAnswer.push('_'));
+// console.log('init state', initialState);
 
+/* **********
+*
+* REDUCERS
+*
+********** */
 const hangmanReducer = (state = initialState, action) => {
   // some let variables to be accessible outside of scope of switch
+  let letters;
+  // let dbQuestion;
+  // let dbAnswer;
+  let displayAnswer;
+  let numberOfFailedGuesses;
 
   switch (action.type) {
-    // case: types.WHATEVER
+    // case types.SELECT_QUESTION:
+    //   dbQuestion =
+    // CAPITALIZE ALL OF THE LETTERS IN THE ANSWER ARRAY
+
+    case types.UPDATE_DISPLAY_ANSWER:
+      // make shallow copy of display answer array
+      displayAnswer = [...state.displayAnswer];
+      // action.payload has the letter that is correct
+      state.dbAnswer.forEach((ele, i) => {
+        if (ele === action.payload) {
+          displayAnswer[i] = ele;
+        }
+      });
+      // console.log('in reducer', displayAnswer);
+      return { ...state, displayAnswer };
+
+    case types.INCREMENT_FAILED_GUESSES:
+      // increment the failed number of guesses if this is triggered
+      numberOfFailedGuesses = state.numberOfFailedGuesses + 1;
+      return { ...state, numberOfFailedGuesses };
+
+    case types.UPDATE_LETTER:
+      // update the letters object with a true, in the place of the payload's letter
+      // console.log('update letter reducer on');
+      letters = { ...state.letters };
+      // update the inputted letter to true in store/state
+      letters[action.payload] = true;
+      // return object updates store/state
+      return { ...state, letters };
     // return SOMETHING
     default:
+      // console.log('default state', state);
       // return the initial state if action.type does not match any of these
       return state;
   }
