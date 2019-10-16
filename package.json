@@ -20,10 +20,6 @@
     "url": "https://github.com/hangmanX/hangman/issues"
   },
   "homepage": "https://github.com/hangmanX/hangman#readme",
-  "jest": {
-    "globalSetup": "./jest-setup.js",
-    "globalTeardown": "./jest-teardown.js"
-  },
   "devDependencies": {
     "@babel/cli": "^7.6.4",
     "@babel/core": "^7.6.4",
@@ -60,9 +56,6 @@
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-hot-loader": "^4.12.15",
-    "react-redux": "^7.1.1",
-    "redux": "^4.0.4",
-    "redux-devtools-extension": "^2.13.8",
     "sequelize": "^5.19.6",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0"
