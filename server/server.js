@@ -1,6 +1,7 @@
 // https://socket.io/docs/
 const path = require('path');
 const express = require('express');
+const mongoFunctions = require('./mongoController');
 
 const app = express();
 const server = require('http').Server(app);
@@ -30,10 +31,14 @@ app.get('/api/auth/github/callback',
 // For adding a new remote to heroku : heroku git:remote -a hangmanx-cs
 // push the branch adam-rajeeb/heroku-deployment to heroku remote's master branch : git push heroku adam-rajeeb/heroku-deployment:master
 app.use('/dist', express.static(path.resolve(__dirname, '../dist')));
-app.use('/', (req, res, next) => {
-  res.sendFile(path.resolve(__dirname, '../public/index.html'));
+app.get('/testing', mongoFunctions.getNewQandA, (req, res, next) => {
+  res.status(300).send('went through testing route');
 });
 
+app.use('/', (req, res, next) => {
+  //console.log('generic git request')
+  res.sendFile(path.resolve(__dirname, '../public/index.html'));
+});
 app.get('/user/profile', cookieController.getInfofromCookie);
 
 /**
@@ -58,7 +63,7 @@ app.use((err, req, res, next) => {
     status: 500
   }
   const newError = {...defaultError, err}
-  console.log('*********** ERROR **********\n', newError.log)
+  console.log('*********** ERROR **********\n', newError.log, err)
   res.status(newError.status).send(newError.message)
 });
 
