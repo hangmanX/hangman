@@ -166,7 +166,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <a href="https://github.com/login/oauth/authorize?client_id=6299af3a88a73b2fd148">Login with Github</a>
+        <a href="https://github.com/login/oauth/authorize?client_id=cecbb15649468c524b83">Login with Github</a>
         <h1>Hangman X</h1>
         <Clue clue={this.state.clue} />
         <HangViewer
