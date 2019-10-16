@@ -33,12 +33,15 @@ const mapDispatchToProps = (dispatch) => ({
   incrementFailedGuesses() {
     dispatch(actions.incrementFailedGuesses());
   },
+  checkWin() {
+    dispatch(actions.checkWin());
+  },
 });
 
 class GameRoom extends Component {
   constructor(props) {
     super(props);
-    this.gameEnded = this.gameEnded.bind(this);
+    // this.gameEnded = this.gameEnded.bind(this);
     this.letterClicked = this.letterClicked.bind(this);
     this.socket = io.connect('https://hangmanx-cs.herokuapp.com');
   }
@@ -70,27 +73,8 @@ class GameRoom extends Component {
   }
 
   componentDidUpdate() {
-    this.gameEnded();
-  }
-
-  gameEnded() {
-    // destructure props
-    const {
-      hangingPrompts, displayAnswer, dbAnswer, numberOfFailedGuesses,
-    } = this.props;
-
-    // check for failure case
-    const maxFailedGuesses = hangingPrompts.length - 1;
-    // console.log('max failed gusses', maxFailedGuesses);
-    if (numberOfFailedGuesses === maxFailedGuesses) {
-      // eslint-disable-next-line no-alert
-      alert('game over');
-    }
-    // check for success case
-    if (displayAnswer.join('') === dbAnswer.join('')) {
-      // eslint-disable-next-line no-alert
-      alert('success');
-    }
+    const { checkWin } = this.props;
+    checkWin();
   }
 
 

@@ -51,6 +51,7 @@ const hangmanReducer = (state = initialState, action) => {
   // let dbAnswer;
   let displayAnswer;
   let numberOfFailedGuesses;
+  const maxNumberOfGuesses = state.hangingPrompts.length;
 
   switch (action.type) {
     // case types.SELECT_QUESTION:
@@ -82,7 +83,16 @@ const hangmanReducer = (state = initialState, action) => {
       letters[action.payload] = true;
       // return object updates store/state
       return { ...state, letters };
-    // return SOMETHING
+
+    case types.CHECK_WIN:
+      numberOfFailedGuesses = state.numberOfFailedGuesses;
+      if (numberOfFailedGuesses === maxNumberOfGuesses) {
+        alert('GAME OVER');
+      }
+      if (state.displayAnswer.join('') === state.dbAnswer.join('')) {
+        alert('WOOOOOOOOOOOOOOOOOOOO');
+      }
+      return { ...state };
     default:
       // console.log('default state', state);
       // return the initial state if action.type does not match any of these

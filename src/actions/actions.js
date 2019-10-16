@@ -36,3 +36,8 @@ export const incrementFailedGuesses = () => ({
   type: types.INCREMENT_FAILED_GUESSES,
   payload: null,
 });
+
+export const checkWin = () => ({
+  type: types.CHECK_WIN,
+  payload: null,
+});
