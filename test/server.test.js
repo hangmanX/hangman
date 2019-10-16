@@ -1,6 +1,7 @@
 const request = require('supertest');
 // must have server running to run tests
-const server = 'http://localhost:80'
+// !Original port is 80
+const server = 'http://localhost:3000'
 
 describe('Route integration', () => {
   describe('/api/auth/github/callback', () => {

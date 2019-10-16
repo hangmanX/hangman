@@ -10,11 +10,11 @@ const fetch = require('node-fetch');
 
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+// !Original Port was 80
+const PORT = process.env.PORT || 3000;
 
-const PORT = process.env.PORT || 80;
-
-const authController = require('./authController.js');
-const cookieController = require('./cookieController.js');
+const authController = require('./controllers/authController.js');
+const cookieController = require('./controllers/cookieController.js');
 
 app.use(bodyParser.json());
 app.use(cookieParser());

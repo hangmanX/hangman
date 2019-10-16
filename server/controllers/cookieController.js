@@ -1,5 +1,5 @@
 const cookieController = {};
-const User = require('./userModel.js');
+const User = require('../models/userModel');
 
 cookieController.setUserIDCookie = (req, res, next) => {
   res.cookie('userid', JSON.stringify(res.locals.userID), { encode: String, httpOnly: true });

@@ -1,5 +1,5 @@
 const fetch = require('node-fetch');
-const User = require('./userModel.js');
+const User = require('../models/userModel');
 
 const authController = {};
 
