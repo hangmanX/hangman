@@ -3,6 +3,9 @@ const request = require('supertest');
 const server = 'http://localhost:80'
 
 describe('Route integration', () => {
+  describe('/api/auth/github/callback', () => {
+  })
+
   describe('/', () => {
     it('responds with 200 status and text/html content type', () => {
       return request(server)
