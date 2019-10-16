@@ -34,7 +34,7 @@ module.exports = {
       // return true for the context which means for all endpoints, proxy to the target
       // the index also had to be set
       context: () => true,
-      target: 'http://localhost:80',
+      target: 'http://localhost:88',
     },
     // proxy: {
     //   '/api': {
