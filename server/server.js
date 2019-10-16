@@ -1,6 +1,13 @@
 // https://socket.io/docs/
 const path = require('path');
 const express = require('express');
+const mongoFunctions = require('./controllers/mongoController');
+const mongoose = require('mongoose');
+
+mongoose.connect("mongodb+srv://Michael:check@cluster0-liyfw.mongodb.net/hang_man?retryWrites=true&w=majority");
+mongoose.connection.once('open', () => {
+  console.log('Connected to mongo database');
+});
 
 const app = express();
 const server = require('http').Server(app);
@@ -33,11 +40,17 @@ app.get('/api/auth/github/callback',
 // push the branch adam-rajeeb/heroku-deployment to heroku remote's master
 // branch : git push heroku adam-rajeeb/heroku-deployment:master
 app.use('/dist', express.static(path.resolve(__dirname, '../dist')));
-app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../public/index.html'));
+
+app.get('/newPrompt', mongoFunctions.getNewQandA, (req, res, next) => {
+  res.status(300).send(res.locals.newQuestion);
+  return next();
 });
 
 app.get('/user/profile', cookieController.getInfofromCookie);
+
+app.get('/', (req, res, next) => {
+  res.sendFile(path.resolve(__dirname, '../public/index.html'));
+});
 
 /**
  * @name GLOBAL ROUTE HANDLER

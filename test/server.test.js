@@ -1,3 +1,4 @@
+const mongoFunctions = require('../server/mongoController');
 const request = require('supertest');
 // must have server running to run tests
 // !Original port is 80
@@ -33,4 +34,8 @@ describe('Global handlers', () => {
         .expect(404, 'Page not found', done);
     });
   });
+});
+
+test('Check that an object is returned', () => {
+  expect(typeof mongoFunctions.getNewQandA()).toBe('object');
 });
