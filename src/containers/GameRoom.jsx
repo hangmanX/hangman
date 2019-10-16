@@ -14,6 +14,7 @@ class GameRoom extends Component {
     super(props);
     this.state = {
       // color: 'red',
+      // //////
       letters: {
         a: false,
         b: false,
@@ -42,6 +43,7 @@ class GameRoom extends Component {
         y: false,
         z: false,
       },
+      // /////////////////
       gameStore: [
         [['It is the thing you might cut yourself on if you reach out to touch the world like a ball'],
           ['m', 'o', 'u', 'n', 't', 'a', 'i', 'n'],
@@ -189,4 +191,4 @@ class GameRoom extends Component {
   }
 }
 
-export default hot(module)(App);
+export default hot(module)(GameRoom);
