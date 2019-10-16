@@ -1,9 +1,9 @@
 /**
  * @consoleLog beginning console logs are used for testing controllers to ensure that endpoints
- * are being hit and for debugging purposes. They include the METHOD, ENDPOINT URL, BODY, LOCALS & DOMAIN
+ * are being hit and for debugging purposes. They include the METHOD, ENDPOINT URL, 
+ * BODY, LOCALS & DOMAIN
  */
 const fetch = require('node-fetch');
-const User = require('../models/userModel');
 
 const authController = {};
 
@@ -15,12 +15,12 @@ const authController = {};
  */
 authController.fetchTokenJSON = async (req, res, next) => {
   console.log('\n*********** authController.fetchTokenJSON ****************', `\nMETHOD: ${req.method} \nENDPOINT: '${req.url}' \nBODY: ${JSON.stringify(req.body)} \nLOCALS: ${JSON.stringify(res.locals)} `);
-  console.log(`DOMAIN: ${req.headers.host}`)
+  console.log(`DOMAIN: ${req.headers.host}`);
 
   await fetch(`https://github.com/login/oauth/access_token?client_id=cecbb15649468c524b83&client_secret=7ef8af810a3ed3ce98cde4a29e48205e0cd6fcfc&code=${req.query.code}`, {
-    'method': 'POST',
-    'headers': {
-      'Accept': 'application/json',
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
     },
   })
     .then((response) => response.json())
@@ -31,23 +31,22 @@ authController.fetchTokenJSON = async (req, res, next) => {
         // On Succcess
         res.locals.token = access_token;
         return next();
-      } else {
-        // Invoke error handler
-        const error = {
-          log: `Error authController.fetchTokenJSON: missing access_token`, 
-          message: 'Bad Request', 
-          status: 400
-        }
-        return next(error);
       }
+      // Invoke error handler
+      const error = {
+        log: 'Error authController.fetchTokenJSON: missing access_token',
+        message: 'Bad Request',
+        status: 400,
+      };
+      return next(error);
     })
     .catch((err) => {
       // Invoke error handler
       const error = {
-        log: `Error authController.fetchTokenJSON: failed fetch request\n${err.message}`, 
-        message: 'Failed Fetch request', 
-        status: 500
-      }
+        log: `Error authController.fetchTokenJSON: failed fetch request\n${err.message}`,
+        message: 'Failed Fetch request',
+        status: 500,
+      };
       return next(error);
     });
 };
@@ -59,12 +58,12 @@ authController.fetchTokenJSON = async (req, res, next) => {
  */
 authController.fetchUserProfile = (req, res, next) => {
   console.log('\n*********** authController.fetchUserProfile ****************', `\nMETHOD: ${req.method} \nENDPOINT: '${req.url}' \nBODY: ${JSON.stringify(req.body)} \nLOCALS: ${JSON.stringify(res.locals)} `);
-  console.log(`DOMAIN: ${req.headers.host}`)
+  console.log(`DOMAIN: ${req.headers.host}`);
   const { token } = res.locals;
 
   fetch('https://api.github.com/user', {
-    'headers': {
-      'Authorization': `token ${token}`,
+    headers: {
+      Authorization: `token ${token}`,
       'Content-Type': 'application/json',
     },
   })
@@ -78,34 +77,12 @@ authController.fetchUserProfile = (req, res, next) => {
     .catch((err) => {
       // Invoke error handler
       const error = {
-        log: `Error authController.fetchUserProfile: failed fetch request\n${err.message}`, 
-        message: 'Failed Fetch request', 
-        status: 500
-      }
+        log: `Error authController.fetchUserProfile: failed fetch request\n${err.message}`,
+        message: 'Failed Fetch request',
+        status: 500,
+      };
       return next(error);
     });
 };
-  
-// ************************** MIGHT DELETE **************************** //
-authController.createDummy = (req, res, next) => {
-  User
-  .findOrCreate({
-    where: { login: 'yyyy' },
-    defaults: {
-      access_token: 'Technical Lead JavaScript',
-        avatar_url: 'egegege',
-      },
-    })
-    .then(([user, created]) => {
-      console.log(user.get({
-        plain: true,
-      }));
-    });
-  };
-  
-  authController.redirectAfterLogin = (req, res, next) => {
-    res.redirect('http://localhost:3000/loggedin');
-  };
-  
-  module.exports = authController;
-  
+
+module.exports = authController;
