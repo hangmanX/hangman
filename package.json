@@ -7,7 +7,8 @@
     "start": "NODE_ENV=development nodemon server/server.js",
     "prestart": "npm run build",
     "build": "NODE_ENV=development webpack --mode production",
-    "dev": "NODE_ENV=development nodemon server/server.js & webpack-dev-server --open"
+    "dev": "NODE_ENV=development nodemon server/server.js & webpack-dev-server --open",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
