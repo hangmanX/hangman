@@ -3,11 +3,19 @@ import React, { Component } from 'react';
 import { hot } from 'react-hot-loader';
 import io from 'socket.io-client';
 import '../styles/App.css';
+import { connect } from 'react-redux';
 import LetterWrapper from './letterWrapper';
 import Clue from '../components/clue';
 import HangViewer from '../components/hangViewer';
 
+// import * as actions from '../actions/';
+import * as types from '../constants/actionTypes';
+
 // https://codeburst.io/isomorphic-web-app-react-js-express-socket-io-e2f03a469cd3
+
+const mapStateToProps = (state) => ({
+  letters: state.hangman.letters,
+});
 
 class GameRoom extends Component {
   constructor(props) {
@@ -120,7 +128,7 @@ class GameRoom extends Component {
   }
 
   gameEnded() {
-    console.log('game ended triggered');
+    // console.log('game ended triggered');
     // check for failure case
     const maxFailedGuesses = this.state.hang.length - 1;
     console.log('max failed gusses', maxFailedGuesses);
@@ -136,9 +144,10 @@ class GameRoom extends Component {
 
   // change state when letter is selected
   letterClicked(e) {
+    // the variable e is a string of the letter that is clicked
     this.socket.emit('clickedLetter', e);
 
-    console.log('letter clicked was:', e);
+    // console.log('letter clicked was:', e);
     // https://stackoverflow.com/questions/43638938/updating-an-object-with-setstate-in-react
 
     if (this.state.answer.includes(e)) {
@@ -165,6 +174,8 @@ class GameRoom extends Component {
   }
 
   render() {
+    console.log('props from redux', this.props.letters);
+
     console.log('letters state after rendering is', this.state.letters);
 
     this.socket.on('changeColor', (col) => {
@@ -191,4 +202,5 @@ class GameRoom extends Component {
   }
 }
 
-export default hot(module)(GameRoom);
+export default hot(module)(connect(mapStateToProps, null)(GameRoom));
+// mapDispatchToProps

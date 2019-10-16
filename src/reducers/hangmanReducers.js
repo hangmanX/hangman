@@ -4,25 +4,29 @@ import * as types from '../constants/actionTypes';
 
 // set up initial state
 const initialState = {
-  letters: {},
-  gameStore: [
-    [['It is the thing you might cut yourself on if you reach out to touch the world like a ball'],
-      ['m', 'o', 'u', 'n', 't', 'a', 'i', 'n'],
-      ['_', '_', '_', '_', '_', '_', '_', '_']],
+  letters: {}, // tracks which letters have been clicked
+  dbQuestion: 'It is the thing you might cut yourself on if you reach out to touch the world like a ball',
+  dbAnswer: ['m', 'o', 'u', 'n', 't', 'a', 'i', 'n'],
+  inputLetters: [], // array of dashes...
+  // gameStore: [
+  //   [['It is the thing you might cut yourself on if you reach out to
+  // touch the world like a ball'],
+  //     ['m', 'o', 'u', 'n', 't', 'a', 'i', 'n'],
+  //     ['_', '_', '_', '_', '_', '_', '_', '_']],
 
 
-    [["It's breezy."],
-      ['f', 'l', 'i', 'g', 'h', 't', 'y'],
-      ['_', '_', '_', '_', '_', '_', '_']],
+  //   [["It's breezy."],
+  //     ['f', 'l', 'i', 'g', 'h', 't', 'y'],
+  //     ['_', '_', '_', '_', '_', '_', '_']],
 
 
-    [['It hangs in the sky, before it falls, but you do not want to avoid it.'],
-      ['a', 'p', 'p', 'l', 'e'],
-      ['_', '_', '_', '_', '_']],
-  ],
-  clue: 'loading',
-  answer: [],
-  disp: [],
+  //   [['It hangs in the sky, before it falls, but you do not want to avoid it.'],
+  //     ['a', 'p', 'p', 'l', 'e'],
+  //     ['_', '_', '_', '_', '_']],
+  // ],
+  // clue: 'loading', // dummy...?
+  answer: [], // wtf is this
+  disp: [], // displayed characters that have been clicked?...
   hang: [
     "I'm having a great day and nothing can go wrong.",
     "Who? Me? I didn't do anything.",
@@ -39,7 +43,7 @@ const initialState = {
 };
 
 for (let i = 65; i < 91; i += 1) {
-  initialState.letters[String.fromCharCode(65)] = false;
+  initialState.letters[String.fromCharCode(i)] = false;
 }
 console.log('init state', initialState);
 
