@@ -5,7 +5,8 @@ const authController = {};
 
 authController.getTokenJSON = async (req, res, next) => {
   console.log('\n*********** authController.getTokenJSON ****************', `\nMETHOD: ${req.method} \nENDPOINT: '${req.url}' \nBODY: ${JSON.stringify(req.body)} \nLOCALS: ${JSON.stringify(res.locals)} `);
-  await fetch(`https://github.com/login/oauth/access_token?client_id=6299af3a88a73b2fd148&client_secret=ad85910bc7aa35a7477c0c4fdc888e8e9ddf9b36&code=${req.query.code}`, {
+  console.log(`\nDOMAIN: ${req.headers.host}`)
+  await fetch(`https://github.com/login/oauth/access_token?client_id=cecbb15649468c524b83&client_secret=7ef8af810a3ed3ce98cde4a29e48205e0cd6fcfc&code=${req.query.code}`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
