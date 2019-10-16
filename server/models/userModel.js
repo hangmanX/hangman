@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = require('./dbModel.js');
+const sequelize = require('./sequelizeModel');
 
 const User = sequelize.define('user', {
   login: {

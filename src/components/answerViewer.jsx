@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 
 const AnswerViewer = (props) => {
-  // console.log('disp is', props.disp);
-
   // generate our array of string characters
   const dispCharArray = [];
   for (let i = 0; i < props.disp.length; i += 1) {
