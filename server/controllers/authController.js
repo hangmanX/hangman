@@ -1,80 +1,98 @@
+/**
+ * @consoleLog beginning console logs are used for testing controllers to ensure that endpoints
+ * are being hit and for debugging purposes. They include the METHOD, ENDPOINT URL, BODY, LOCALS & DOMAIN
+ */
 const fetch = require('node-fetch');
 const User = require('../models/userModel');
 
 const authController = {};
 
-authController.getTokenJSON = async (req, res, next) => {
-  console.log('\n*********** authController.getTokenJSON ****************', `\nMETHOD: ${req.method} \nENDPOINT: '${req.url}' \nBODY: ${JSON.stringify(req.body)} \nLOCALS: ${JSON.stringify(res.locals)} `);
-  console.log(`\nDOMAIN: ${req.headers.host}`)
+/**
+ * @description after a success login via Github's oAuth, Github redirects back to
+ * the endpoint '/api/auth/github/callback' where this middleware fires off first
+ * and makes a fetch request back to github
+ * @response gets a "access_token" after making a fetch request to GitHub
+ */
+authController.fetchTokenJSON = async (req, res, next) => {
+  console.log('\n*********** authController.fetchTokenJSON ****************', `\nMETHOD: ${req.method} \nENDPOINT: '${req.url}' \nBODY: ${JSON.stringify(req.body)} \nLOCALS: ${JSON.stringify(res.locals)} `);
+  console.log(`DOMAIN: ${req.headers.host}`)
+
   await fetch(`https://github.com/login/oauth/access_token?client_id=cecbb15649468c524b83&client_secret=7ef8af810a3ed3ce98cde4a29e48205e0cd6fcfc&code=${req.query.code}`, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
+    'method': 'POST',
+    'headers': {
+      'Accept': 'application/json',
     },
-  }).then((response) => response.json()).then((response2) => {
-    res.locals.token = response2.access_token;
-    return next();
-  }).catch((err) => {
-    const error = {
-      log: `Error authController.getTokenJSON: failed fetch request\n${err.message}`, 
-      message: 'Failed Fetch request', 
-      status: 500
-    }
-    next(error)
-  });
-};
+  })
+    .then((response) => response.json())
+    .then((parsedResponse) => {
+      const { access_token } = parsedResponse;
 
-authController.getUserProfile = (req, res, next) => {
-  const access_token = res.locals.token;
-
-  const userProfile = fetch('https://api.github.com/user', {
-    headers: {
-      Authorization: `token ${access_token}`,
-      'Content-Type': 'application/json',
-    },
-  }).then((response) => response.json()).then((userProfile) => {
-    console.log();
-    res.locals.userProfile = userProfile;
-    return next();
-  }).catch((err) => {
-    console.log('error in getTokenJSON', err);
-  });
-};
-
-authController.redirectAfterLogin = (req, res, next) => {
-  res.redirect('http://localhost:3000/loggedin');
-};
-
-authController.createUser = (req, res, next) => {
-  const { userProfile } = res.locals;
-
-  const { login, name, avatar_url } = userProfile;
-  const access_token = res.locals.token;
-
-  User
-    .findOrCreate({
-      where: { login },
-      defaults: {
-        name,
-        avatar_url,
-        access_token,
-      },
+      if (access_token) {
+        // On Succcess
+        res.locals.token = access_token;
+        return next();
+      } else {
+        // Invoke error handler
+        const error = {
+          log: `Error authController.fetchTokenJSON: missing access_token`, 
+          message: 'Bad Request', 
+          status: 400
+        }
+        return next(error);
+      }
     })
-    .then(([user, created]) => {
-      res.locals.userID = user.id;
-      return next();
-    }).catch((err) => {
-      console.log('Err at adding user to database', err);
+    .catch((err) => {
+      // Invoke error handler
+      const error = {
+        log: `Error authController.fetchTokenJSON: failed fetch request\n${err.message}`, 
+        message: 'Failed Fetch request', 
+        status: 500
+      }
+      return next(error);
     });
 };
 
+/**
+ * @description makes a fetch request to Github using the "access_token" required
+ * from a successful oAuth login
+ * @response a user's profile information
+ */
+authController.fetchUserProfile = (req, res, next) => {
+  console.log('\n*********** authController.fetchUserProfile ****************', `\nMETHOD: ${req.method} \nENDPOINT: '${req.url}' \nBODY: ${JSON.stringify(req.body)} \nLOCALS: ${JSON.stringify(res.locals)} `);
+  console.log(`DOMAIN: ${req.headers.host}`)
+  const { token } = res.locals;
 
+  fetch('https://api.github.com/user', {
+    'headers': {
+      'Authorization': `token ${token}`,
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((userProfile) => {
+      // On Success
+      const { name, login, avatar_url} = userProfile;
+      res.locals.userProfile = { name, login, avatar_url };
+      return next();
+    })
+    .catch((err) => {
+      // Invoke error handler
+      const error = {
+        log: `Error authController.fetchUserProfile: failed fetch request\n${err.message}`, 
+        message: 'Failed Fetch request', 
+        status: 500
+      }
+      return next(error);
+    });
+};
+  
+// ************************** MIGHT DELETE **************************** //
 authController.createDummy = (req, res, next) => {
   User
-    .findOrCreate({
-      where: { login: 'yyyy' },
-      defaults: {
-        access_token: 'Technical Lead JavaScript',
+  .findOrCreate({
+    where: { login: 'yyyy' },
+    defaults: {
+      access_token: 'Technical Lead JavaScript',
         avatar_url: 'egegege',
       },
     })
@@ -83,6 +101,11 @@ authController.createDummy = (req, res, next) => {
         plain: true,
       }));
     });
-};
-
-module.exports = authController;
+  };
+  
+  authController.redirectAfterLogin = (req, res, next) => {
+    res.redirect('http://localhost:3000/loggedin');
+  };
+  
+  module.exports = authController;
+  
