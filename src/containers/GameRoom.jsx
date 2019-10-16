@@ -44,14 +44,14 @@ class GameRoom extends Component {
   }
 
   componentDidMount() {
-    // this.socket.on('connect', () => {
-    //   console.log('connected to socket');
-    // });
-
     // destructure props
     const {
       updateLetter, dbAnswer, updateDisplayAnswer, incrementFailedGuesses,
     } = this.props;
+
+    // this.socket.on('connect', () => {
+    //   console.log('connected to socket');
+    // });
 
     // create socket listener for clicked letter
     this.socket.on('clickedLetter', (letter) => {
@@ -67,14 +67,6 @@ class GameRoom extends Component {
         incrementFailedGuesses();
       }
     });
-
-    // initialize the state keys clue, answer and disp
-    // const index = 0;
-    // this.setState({
-    //   clue: this.state.gameStore[index][0],
-    //   answer: this.state.gameStore[index][1],
-    // disp: this.state.gameStore[index][2],
-    // });
   }
 
   componentDidUpdate() {
@@ -87,7 +79,6 @@ class GameRoom extends Component {
       hangingPrompts, displayAnswer, dbAnswer, numberOfFailedGuesses,
     } = this.props;
 
-    // console.log('game ended triggered');
     // check for failure case
     const maxFailedGuesses = hangingPrompts.length - 1;
     // console.log('max failed gusses', maxFailedGuesses);
@@ -105,6 +96,8 @@ class GameRoom extends Component {
 
   // change state when letter is selected
   letterClicked(letter) {
+    // console.log('letter clicked was:', e);
+
     // destructure props
     const { updateLetter, dbAnswer, updateDisplayAnswer } = this.props;
 
@@ -112,9 +105,7 @@ class GameRoom extends Component {
     // the variable e is a string of the letter that is clicked
     this.socket.emit('clickedLetter', letter);
 
-    // console.log('letter clicked was:', e);
-    // https://stackoverflow.com/questions/43638938/updating-an-object-with-setstate-in-react
-
+    // dispatch action to update the letter object in store/state
     updateLetter(letter);
 
     // check if answer in state has the letter
@@ -131,10 +122,10 @@ class GameRoom extends Component {
     const {
       dbQuestion, dbAnswer, hangingPrompts, numberOfFailedGuesses, letters, displayAnswer,
     } = this.props;
+
+    // return all the things and stuff to render
     return (
       <div className="App">
-        <a href="https://github.com/login/oauth/authorize?client_id=6299af3a88a73b2fd148">Login with Github</a>
-        <h1>Hangman X</h1>
         <Clue clue={dbQuestion} />
         <HangViewer
           hang={hangingPrompts}

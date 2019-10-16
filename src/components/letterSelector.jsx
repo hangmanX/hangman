@@ -1,9 +1,9 @@
 import React from 'react';
 
-const LetterSelector = (props) => {
-  // see what props/state we're getting
-  const letterObj = props.letters;
+const LetterSelector = ({ letters, letterClicked }) => {
+  const letterObj = letters;
   const letterArr = Object.keys(letterObj);
+
   // generate buttons for each letter
   const letterButtonArr = [];
   for (let i = 0; i < letterArr.length; i += 1) {
@@ -16,12 +16,11 @@ const LetterSelector = (props) => {
         onClick={
           () => {
             // console.log(letterArr[i]);
-            props.letterClicked(letterArr[i]);
+            letterClicked(letterArr[i]);
           }
         }
       >
         {letterArr[i]}
-
       </button>,
     );
   }

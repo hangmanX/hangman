@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-const AnswerViewer = (props) => {
+const AnswerViewer = ({ disp }) => {
   // console.log('answer viewer props', props);
 
   // generate our array of string characters
   const dispCharArray = [];
-  for (let i = 0; i < props.disp.length; i += 1) {
+  for (let i = 0; i < disp.length; i += 1) {
     dispCharArray.push(
       <span
         className="answerLetter"
         key={i}
       >
-        {props.disp[i]}
+        {disp[i]}
 
       </span>,
     );
@@ -19,7 +19,7 @@ const AnswerViewer = (props) => {
 
   return (
     <div id="answerViewer">
-      {props.disp}
+      {disp}
     </div>
   );
 };

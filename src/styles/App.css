@@ -1,10 +1,11 @@
 .App {
-  margin: 1rem;
+  /* margin: ; */
   font-family: Arial, Helvetica, sans-serif;
   display: grid;
   justify-content: center;
   background: antiquewhite;
-  height: 400px;
+  height: auto;
+  padding: 10px 10px;
 }
 
 button {
@@ -21,13 +22,10 @@ button {
 }
 
 .letterButton:disabled {
-
   background-color: gray;
-
 }
 
 .letterWrapper {
-  /* width: 50%; */
   margin-left: 10%;
   margin-right: 10%
 }
@@ -36,9 +34,9 @@ button {
   text-align: center;
 }
 
-body {
+/* body {
   background-color: black;
-}
+} */
 
 h1 {
   text-align: center;
@@ -48,6 +46,7 @@ h1 {
   text-align: center;
   background-color: skyblue;
   padding: 15px;
+  height: 50px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
 }
@@ -57,6 +56,8 @@ h1 {
   text-align: center;
   background-color: burlywood;
   border: 5px solid #dac292;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 
 .letterButtons {
@@ -65,5 +66,5 @@ h1 {
 }
 
 .letterButton:hover {
-  box-shadow: 2px 2px darkgray;
+  box-shadow: 5px 5px 5px darkgray;
 }

@@ -1,20 +1,23 @@
 /* eslint-disable linebreak-style */
 // ^wtf is this rule...
-import React, { Component } from 'react';
+import React from 'react';
 import LetterSelector from '../components/letterSelector';
 import AnswerViewer from '../components/answerViewer';
 
-const LetterWrapper = (props) => (
+const LetterWrapper = ({
+  answer, disp, letters, letterClicked,
+}) => (
   <div className="letterWrapper">
     <AnswerViewer
-      answer={props.answer}
-      disp={props.disp}
+      answer={answer}
+      disp={disp}
     />
     <LetterSelector
-      letters={props.letters}
-      disp={props.disp}
-      letterClicked={props.letterClicked}
+      letters={letters}
+      disp={disp}
+      letterClicked={letterClicked}
     />
   </div>
 );
+
 export default LetterWrapper;
