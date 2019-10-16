@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 import React, { Component } from 'react';
 import { hot } from 'react-hot-loader';
@@ -47,18 +48,23 @@ class GameRoom extends Component {
     //   console.log('connected to socket');
     // });
 
+    // destructure props
+    const {
+      updateLetter, dbAnswer, updateDisplayAnswer, incrementFailedGuesses,
+    } = this.props;
+
     // create socket listener for clicked letter
     this.socket.on('clickedLetter', (letter) => {
       // call dispatch to update letters in store/state
-      this.props.updateLetter(letter);
+      updateLetter(letter);
 
       // check if answer in state has the letter
-      if (this.props.dbAnswer.includes(letter)) {
+      if (dbAnswer.includes(letter)) {
         // call dispatch to update the display answer
-        this.props.updateDisplayAnswer(letter);
+        updateDisplayAnswer(letter);
       } else {
         // this.setState({ numFailedGuesses: this.state.numFailedGuesses + 1 });
-        this.props.incrementFailedGuesses();
+        incrementFailedGuesses();
       }
     });
 
@@ -76,16 +82,21 @@ class GameRoom extends Component {
   }
 
   gameEnded() {
+    // destructure props
+    const {
+      hangingPrompts, displayAnswer, dbAnswer, numberOfFailedGuesses,
+    } = this.props;
+
     // console.log('game ended triggered');
     // check for failure case
-    const maxFailedGuesses = this.props.hangingPrompts.length - 1;
+    const maxFailedGuesses = hangingPrompts.length - 1;
     // console.log('max failed gusses', maxFailedGuesses);
-    if (this.props.numberOfFailedGuesses === maxFailedGuesses) {
+    if (numberOfFailedGuesses === maxFailedGuesses) {
       // eslint-disable-next-line no-alert
-      alert(' game over');
+      alert('game over');
     }
     // check for success case
-    if (this.props.displayAnswer.join('') === this.props.dbAnswer.join('')) {
+    if (displayAnswer.join('') === dbAnswer.join('')) {
       // eslint-disable-next-line no-alert
       alert('success');
     }
@@ -94,6 +105,9 @@ class GameRoom extends Component {
 
   // change state when letter is selected
   letterClicked(letter) {
+    // destructure props
+    const { updateLetter, dbAnswer, updateDisplayAnswer } = this.props;
+
     // console.log('in letterClicked', this.props);
     // the variable e is a string of the letter that is clicked
     this.socket.emit('clickedLetter', letter);
@@ -101,64 +115,36 @@ class GameRoom extends Component {
     // console.log('letter clicked was:', e);
     // https://stackoverflow.com/questions/43638938/updating-an-object-with-setstate-in-react
 
-    this.props.updateLetter(letter);
+    updateLetter(letter);
 
     // check if answer in state has the letter
-    if (this.props.dbAnswer.includes(letter)) {
+    if (dbAnswer.includes(letter)) {
       // call dispatch to update the display answer
-      this.props.updateDisplayAnswer(letter);
-    } else {
-      this.props.incrementFailedGuesses();
-      // this.setState({ numFailedGuesses: this.state.numFailedGuesses + 1 });
+      updateDisplayAnswer(letter);
     }
-
-
-    // same as above to account for emits from other users??
-    // if (this.props.dbAnswer.includes(e)) {
-    //   for (let i = 0; i < this.props.dbAnswer.length; i++) {
-    //     if (this.props.dbAnswer[i] === e) {
-    //       this.setState((prevState) => {
-    //         const disp = prevState.disp.slice();
-    //         disp[i] = e;
-    //         return { disp };
-    //       });
-    //     }
-    //   }
-    //   console.log('this letter is in apple: ', e);
-    // }
-    // else {
-    //   this.setState({numFailedGuesses: this.state.numFailedGuesses+1})
-    // }
-
-    // this.setState((prevState) => {
-    //   const letters = { ...prevState.letters }; // creating copy of state variable
-    //   letters[letter] = true; // update the name property, assign a new value
-    //   return { letters }; // return new object jasper object
-    // });
   }
 
   render() {
     // console.log('props from redux', this.props.letters);
 
-    // i don't think this is implemented
-    // this.socket.on('changeColor', (col) => {
-    // document.body.style.backgroundColor = col;
-    // });
-    // console.log('props in render method', this.props);
+    // destructure props
+    const {
+      dbQuestion, dbAnswer, hangingPrompts, numberOfFailedGuesses, letters, displayAnswer,
+    } = this.props;
     return (
       <div className="App">
         <a href="https://github.com/login/oauth/authorize?client_id=6299af3a88a73b2fd148">Login with Github</a>
         <h1>Hangman X</h1>
-        <Clue clue={this.props.dbQuestion} />
+        <Clue clue={dbQuestion} />
         <HangViewer
-          hang={this.props.hangingPrompts}
-          numFailedGuesses={this.props.numberOfFailedGuesses}
+          hang={hangingPrompts}
+          numFailedGuesses={numberOfFailedGuesses}
         />
         <LetterWrapper
-          letters={this.props.letters}
+          letters={letters}
           letterClicked={this.letterClicked}
-          answer={this.props.dbAnswer}
-          disp={this.props.displayAnswer}
+          answer={dbAnswer}
+          disp={displayAnswer}
         />
       </div>
     );
