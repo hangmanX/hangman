@@ -7,11 +7,14 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import App from './App';
 import store from './store';
-import { BrowserRouter as Router } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+
+const hist = createBrowserHistory();
 
 render(
   <Provider store={store}>
-    <Router>
+    <Router history={hist}>
       <App /> 
     </Router>
   </Provider>,

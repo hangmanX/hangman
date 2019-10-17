@@ -25,6 +25,7 @@ module.exports = {
     filename: 'bundle.js',
   },
   devServer: {
+    historyApiFallback: true,
     contentBase: path.join(__dirname, 'public/'),
     // !DEFAULT PORT IS 8080
     // port: 3000,
