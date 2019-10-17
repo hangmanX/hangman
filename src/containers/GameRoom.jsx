@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import LetterWrapper from './letterWrapper';
 import Clue from '../components/clue';
 import HangViewer from '../components/hangViewer';
+import HangingDude from '../components/HangingDude';
 
 // import * as types from '../constants/actionTypes';
 import * as actions from '../actions/actions';
@@ -33,12 +34,29 @@ const mapDispatchToProps = (dispatch) => ({
   incrementFailedGuesses() {
     dispatch(actions.incrementFailedGuesses());
   },
+  checkWin() {
+    dispatch(actions.checkWin());
+  },
+  newQuestion() {
+    // console.log('new question clicked!');
+    fetch('/newPrompt', {
+      headers: {
+        'Cache-Control': 'no-cache',
+      },
+    })
+      .then((res) => res.json())
+      .then((obj) => {
+        const { question, answer } = obj;
+        // console.log('question and answer', question, answer);
+        dispatch(actions.newQuestion(question, answer));
+      });
+  },
 });
 
 class GameRoom extends Component {
   constructor(props) {
     super(props);
-    this.gameEnded = this.gameEnded.bind(this);
+    // this.gameEnded = this.gameEnded.bind(this);
     this.letterClicked = this.letterClicked.bind(this);
     this.socket = io.connect('https://hangmanx-cs.herokuapp.com');
   }
@@ -46,20 +64,22 @@ class GameRoom extends Component {
   componentDidMount() {
     // destructure props
     const {
-      updateLetter, dbAnswer, updateDisplayAnswer, incrementFailedGuesses,
+      updateLetter, updateDisplayAnswer, incrementFailedGuesses, newQuestion,
     } = this.props;
 
     // this.socket.on('connect', () => {
     //   console.log('connected to socket');
     // });
+    // get a new question (dispatch to props)
+    newQuestion();
 
     // create socket listener for clicked letter
     this.socket.on('clickedLetter', (letter) => {
       // call dispatch to update letters in store/state
       updateLetter(letter);
-
+      // console.log('letter and dbAnswer in GameRoom comp', letter, dbAnswer);
       // check if answer in state has the letter
-      if (dbAnswer.includes(letter)) {
+      if (this.props.dbAnswer.includes(letter)) {
         // call dispatch to update the display answer
         updateDisplayAnswer(letter);
       } else {
@@ -70,27 +90,8 @@ class GameRoom extends Component {
   }
 
   componentDidUpdate() {
-    this.gameEnded();
-  }
-
-  gameEnded() {
-    // destructure props
-    const {
-      hangingPrompts, displayAnswer, dbAnswer, numberOfFailedGuesses,
-    } = this.props;
-
-    // check for failure case
-    const maxFailedGuesses = hangingPrompts.length - 1;
-    // console.log('max failed gusses', maxFailedGuesses);
-    if (numberOfFailedGuesses === maxFailedGuesses) {
-      // eslint-disable-next-line no-alert
-      alert('game over');
-    }
-    // check for success case
-    if (displayAnswer.join('') === dbAnswer.join('')) {
-      // eslint-disable-next-line no-alert
-      alert('success');
-    }
+    const { checkWin } = this.props;
+    checkWin();
   }
 
 
@@ -106,13 +107,13 @@ class GameRoom extends Component {
     this.socket.emit('clickedLetter', letter);
 
     // dispatch action to update the letter object in store/state
-    updateLetter(letter);
+    // updateLetter(letter);
 
-    // check if answer in state has the letter
-    if (dbAnswer.includes(letter)) {
-      // call dispatch to update the display answer
-      updateDisplayAnswer(letter);
-    }
+    // // check if answer in state has the letter
+    // if (dbAnswer.includes(letter)) {
+    //   // call dispatch to update the display answer
+    //   updateDisplayAnswer(letter);
+    // }
   }
 
   render() {
@@ -121,12 +122,14 @@ class GameRoom extends Component {
     // destructure props
     const {
       dbQuestion, dbAnswer, hangingPrompts, numberOfFailedGuesses, letters, displayAnswer,
+      newQuestion,
     } = this.props;
 
     // return all the things and stuff to render
     return (
       <div className="App">
-        <Clue clue={dbQuestion} />
+        {/* <img src="./../../dist/imgs/figure1.png" alt="imageone" /> */}
+        <Clue clue={dbQuestion} newQuestion={newQuestion} />
         <HangViewer
           hang={hangingPrompts}
           numFailedGuesses={numberOfFailedGuesses}
@@ -137,6 +140,7 @@ class GameRoom extends Component {
           answer={dbAnswer}
           disp={displayAnswer}
         />
+        <HangingDude numberOfFailedGuesses={numberOfFailedGuesses} />
       </div>
     );
   }
