@@ -95,7 +95,11 @@ io.on('connection', (socket) => {
 
   socket.emit('loadRooms', gameRooms)
   console.log("SOCKET ID", socket.id)
-  socket.on('joinRoom', (room) => console.log('JOINED ROOM', room))
+  socket.on('joinRoom', (roomid) => {
+    console.log("ROOMID", roomid)
+    socket.join(roomid);
+    socket.emit('testsocket',roomid);
+  })
   socket.on('clickedLetter', (letter) => {
     console.log('recived', letter);
     io.sockets.emit('clickedLetter', letter);
@@ -106,7 +110,7 @@ io.on('connection', (socket) => {
   
 });
 
-// const manager = io.of("/room").on('connection', function (socket) {
+// const manager = io.of("/game").on('connection', function (socket) {
 //   socket.on('addRoom', (roomNumber) => {
 //     gameRooms.push(roomNumber)
 //     socket.emit('loadRooms', gameRooms)

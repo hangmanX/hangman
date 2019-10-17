@@ -23,11 +23,14 @@ class Splash extends Component {
       return this.props.roomCount
     }
   }
-
+  componentWillUnmount() {
+    this.socket.close();
+  }
+  
   componentDidMount(){
     this.socket.on('loadRooms', (rooms)=>{
       console.log("ROOMS in SPLASH", rooms)
-      this.props.updateRoomsToDisplay(rooms, console.log("updated state", this.props.gameRooms))
+      this.props.updateRoomsToDisplay(rooms)
     })
   }
   
