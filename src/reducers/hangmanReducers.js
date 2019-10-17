@@ -52,6 +52,7 @@ const hangmanReducer = (state = initialState, action) => {
   let displayAnswer;
   let numberOfFailedGuesses;
   const maxNumberOfGuesses = state.hangingPrompts.length - 1;
+  // console.log('state', state);
 
   switch (action.type) {
     // case types.SELECT_QUESTION:
@@ -62,7 +63,10 @@ const hangmanReducer = (state = initialState, action) => {
       // async in redux is hard......................
       dbQuestion = action.payloadQuestion;
       dbAnswer = action.payloadAnswer.split('');
-      return { ...state, dbQuestion, dbAnswer };
+      displayAnswer = dbAnswer.map(() => '_');
+      return {
+        ...state, dbQuestion, dbAnswer, displayAnswer,
+      };
 
 
     // eslint-disable-next-line no-fallthrough

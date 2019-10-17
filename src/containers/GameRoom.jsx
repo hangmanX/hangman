@@ -36,9 +36,18 @@ const mapDispatchToProps = (dispatch) => ({
   checkWin() {
     dispatch(actions.checkWin());
   },
-  newQuestion(obj) {
-    const { question, answer } = obj;
-    dispatch(actions.newQuestion(question, answer));
+  newQuestion() {
+    // console.log('new question clicked!');
+    fetch('/newPrompt', {
+      headers: {
+        'Cache-Control': 'no-cache',
+      },
+    })
+      .then((res) => res.json())
+      .then((obj) => {
+        const { question, answer } = obj;
+        dispatch(actions.newQuestion(question, answer));
+      });
   },
 });
 
@@ -59,11 +68,8 @@ class GameRoom extends Component {
     // this.socket.on('connect', () => {
     //   console.log('connected to socket');
     // });
-    fetch('/newPrompt')
-      .then((res) => res.json())
-      .then((obj) => {
-        newQuestion(obj);
-      });
+    // get a new question (dispatch to props)
+    newQuestion();
 
     // create socket listener for clicked letter
     this.socket.on('clickedLetter', (letter) => {
@@ -114,12 +120,13 @@ class GameRoom extends Component {
     // destructure props
     const {
       dbQuestion, dbAnswer, hangingPrompts, numberOfFailedGuesses, letters, displayAnswer,
+      newQuestion,
     } = this.props;
 
     // return all the things and stuff to render
     return (
       <div className="App">
-        <Clue clue={dbQuestion} />
+        <Clue clue={dbQuestion} newQuestion={newQuestion} />
         <HangViewer
           hang={hangingPrompts}
           numFailedGuesses={numberOfFailedGuesses}

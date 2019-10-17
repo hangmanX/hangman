@@ -12,6 +12,15 @@ button {
   background-color: lightblue;
 }
 
+#newQButton {
+  background-color: lightgray;
+  color: dimgray;
+  width: 100px;
+  height: 50px;
+  margin: 0 20px;
+  font-size: 1rem;
+}
+
 .letterButton {
   margin-top: 2%;
   background-color: blueviolet;
@@ -43,7 +52,10 @@ h1 {
 }
 
 .clue {
+  display: grid;
+  grid-template: auto / 1fr auto;
   text-align: center;
+  align-items: center;
   background-color: skyblue;
   padding: 15px;
   height: 50px;

@@ -1,7 +1,6 @@
 // https://socket.io/docs/
 const path = require('path');
 const express = require('express');
-const mongoFunctions = require('./controllers/mongoController');
 const mongoose = require('mongoose');
 
 mongoose.connect("mongodb+srv://Michael:check@cluster0-liyfw.mongodb.net/hang_man?retryWrites=true&w=majority");
@@ -15,6 +14,7 @@ const io = require('socket.io')(server);
 
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const mongoFunctions = require('./controllers/mongoController');
 // !Original Port was 80
 const PORT = process.env.PORT || 3000;
 
@@ -43,7 +43,6 @@ app.use('/dist', express.static(path.resolve(__dirname, '../dist')));
 
 app.get('/newPrompt', mongoFunctions.getNewQandA, (req, res, next) => {
   res.status(300).send(res.locals.newQuestion);
-  return next();
 });
 
 app.get('/user/profile', cookieController.getInfofromCookie);
@@ -80,7 +79,7 @@ app.use((err, req, res, next) => {
 
 server.listen(PORT, () => {
   // for deployment run on regualar node in NPM START
-  console.log('\n** RUNNING ON NODEMON **')
+  console.log('\n** RUNNING ON NODEMON **');
   console.log('Server listening on PORT:', PORT);
   console.log('** FOR DEPLOYMENT, SWITCH TO REGULAR NODE **');
 });
