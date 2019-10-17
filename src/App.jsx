@@ -3,16 +3,16 @@ import GameRoom from './containers/GameRoom';
 import DefaultContainer from './containers/DefaultContainer';
 import { Route, Link } from 'react-router-dom'
 import Splash from './Splash.jsx'
-import { Route, Link } from 'react-router-dom'
-import Splash from './Splash.jsx'
 
 const App = () => (
-  <fragment>
+  <React.Fragment>
+    <Route exact path="/" component={Splash} />
+    <Route path="/game/:id">
+      <DefaultContainer />
+      <GameRoom />
+    </Route>
 
-    <DefaultContainer />
-    <GameRoom />
-
-  </fragment>
+  </React.Fragment>
 );
 
 export default App;

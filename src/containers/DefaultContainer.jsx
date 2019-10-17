@@ -13,7 +13,7 @@ class DefaultContainer extends React.Component {
 
   render() {
     return (
-      <fragment>
+      <React.Fragment>
         <a
           href="https://github.com/login/oauth/authorize?client_id=cecbb15649468c524b83"
         >
@@ -21,7 +21,7 @@ class DefaultContainer extends React.Component {
         </a>
 
         <h1>Hangman X</h1>
-      </fragment>
+      </React.Fragment>
     );
   }
 }

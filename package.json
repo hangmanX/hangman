@@ -56,13 +56,10 @@
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-hot-loader": "^4.12.15",
-<<<<<<< HEAD
     "react-router-dom": "^5.1.2",
-=======
     "react-redux": "^7.1.1",
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
->>>>>>> 26b90bd9327ff252ecdc6236e9e874d5828c2705
     "sequelize": "^5.19.6",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0"

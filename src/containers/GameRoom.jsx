@@ -40,7 +40,7 @@ class GameRoom extends Component {
     super(props);
     this.gameEnded = this.gameEnded.bind(this);
     this.letterClicked = this.letterClicked.bind(this);
-    this.socket = io.connect('https://hangmanx-cs.herokuapp.com');
+    this.socket = io.connect('localhost:3000');
   }
 
   componentDidMount() {
@@ -67,6 +67,7 @@ class GameRoom extends Component {
         incrementFailedGuesses();
       }
     });
+
   }
 
   componentDidUpdate() {
