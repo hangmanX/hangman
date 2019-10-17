@@ -79,6 +79,7 @@ class GameRoom extends Component {
       updateLetter(letter);
       // console.log('letter and dbAnswer in GameRoom comp', letter, dbAnswer);
       // check if answer in state has the letter
+      // eslint-disable-next-line react/destructuring-assignment
       if (this.props.dbAnswer.includes(letter)) {
         // call dispatch to update the display answer
         updateDisplayAnswer(letter);
@@ -87,6 +88,9 @@ class GameRoom extends Component {
         incrementFailedGuesses();
       }
     });
+
+    // single line of code to handle keypresses (sends to letterClicked method)
+    document.addEventListener('keypress', (e) => this.letterClicked(e.key.toLowerCase()));
   }
 
   componentDidUpdate() {
@@ -94,13 +98,18 @@ class GameRoom extends Component {
     checkWin();
   }
 
+  // this probably isn't doing it's job because the event listener function
+  // in Comp Did Mount is anonymous https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener
+  componentWillUnmount() {
+    document.removeEventListener('keypress');
+  }
 
   // change state when letter is selected
   letterClicked(letter) {
     // console.log('letter clicked was:', e);
 
     // destructure props
-    const { updateLetter, dbAnswer, updateDisplayAnswer } = this.props;
+    // const { updateLetter, dbAnswer, updateDisplayAnswer } = this.props;
 
     // console.log('in letterClicked', this.props);
     // the variable e is a string of the letter that is clicked

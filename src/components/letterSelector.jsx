@@ -25,6 +25,10 @@ const LetterSelector = ({ letters, letterClicked }) => {
     );
   }
 
+  // function keyPressed(event) {
+  //   console.log('keypress', event.key);
+  // }
+
   return (
     <div className="letterButtons">
       {letterButtonArr}
