@@ -106,14 +106,20 @@ class GameRoom extends Component {
 
   // change state when letter is selected
   letterClicked(letter) {
-    // console.log('letter clicked was:', e);
+    // if (String.toCharCode())
+    // console.log('letter clicked was:', letter, letter.charCodeAt(0));
 
+    const { newQuestion } = this.props;
+    // only allow lower case letters, or ENTER for newQuestion
+    if (letter === 'enter') newQuestion();
+    else if (letter.charCodeAt(0) >= 97 && letter.charCodeAt(0) <= 122) {
+      this.socket.emit('clickedLetter', letter);
+    }
     // destructure props
     // const { updateLetter, dbAnswer, updateDisplayAnswer } = this.props;
 
     // console.log('in letterClicked', this.props);
     // the variable e is a string of the letter that is clicked
-    this.socket.emit('clickedLetter', letter);
 
     // dispatch action to update the letter object in store/state
     // updateLetter(letter);
@@ -137,7 +143,6 @@ class GameRoom extends Component {
     // return all the things and stuff to render
     return (
       <div className="App">
-        {/* <img src="./../../dist/imgs/figure1.png" alt="imageone" /> */}
         <Clue clue={dbQuestion} newQuestion={newQuestion} />
         <HangViewer
           hang={hangingPrompts}
@@ -156,4 +161,3 @@ class GameRoom extends Component {
 }
 
 export default hot(module)(connect(mapStateToProps, mapDispatchToProps)(GameRoom));
-// mapDispatchToProps

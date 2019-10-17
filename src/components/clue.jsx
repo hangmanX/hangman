@@ -4,7 +4,7 @@ import React from 'react';
 const Clue = ({ clue, newQuestion }) => (
   <div className="clue">
     {clue}
-    <button id="newQButton" type="button" onClick={newQuestion}>NEW QUESTION</button>
+    <button id="newQButton" type="button" onClick={newQuestion}>NEW QUESTION (ENTER)</button>
   </div>
 );
 
