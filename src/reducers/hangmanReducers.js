@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 // reducer for all hangman games
 
 import * as types from '../constants/actionTypes';
@@ -85,7 +86,9 @@ const hangmanReducer = (state = initialState, action) => {
     case types.INCREMENT_FAILED_GUESSES:
       // increment the failed number of guesses if this is triggered
       numberOfFailedGuesses = state.numberOfFailedGuesses + 1;
-      if (numberOfFailedGuesses > maxNumberOfGuesses) numberOfFailedGuesses = maxNumberOfGuesses + 1;
+      if (numberOfFailedGuesses > maxNumberOfGuesses) {
+        numberOfFailedGuesses = maxNumberOfGuesses + 1;
+      }
       return { ...state, numberOfFailedGuesses };
 
     case types.UPDATE_LETTER:
