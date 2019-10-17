@@ -61,10 +61,15 @@ const hangmanReducer = (state = initialState, action) => {
       // async in redux is hard......................
       dbQuestion = action.payloadQuestion;
       dbAnswer = action.payloadAnswer.split('');
-      console.log('answer and db answer in reducer', action.payloadAnswer, dbAnswer);
+      // console.log('answer and db answer in reducer', action.payloadAnswer, dbAnswer);
       displayAnswer = dbAnswer.map(() => '_');
       return {
-        ...state, dbQuestion, dbAnswer, displayAnswer,
+        ...initialState,
+        dbQuestion,
+        dbAnswer,
+        displayAnswer,
+        // letters: initialState.letters,
+        // numberOfFailedGuesses: 0,
       };
 
 
@@ -109,6 +114,9 @@ const hangmanReducer = (state = initialState, action) => {
         alert('WOOOOOOOOOOOOOOOOOOOO');
       }
       return { ...state };
+
+    case types.RESET_GAME:
+      break;
     default:
       // console.log('default state', state, action.type);
       // return the initial state if action.type does not match any of these

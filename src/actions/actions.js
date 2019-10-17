@@ -42,3 +42,8 @@ export const newQuestion = (question, answer) => ({
   payloadQuestion: question,
   payloadAnswer: answer,
 });
+
+export const resetGame = () => ({
+  type: types.RESET_GAME,
+  payload: null,
+});

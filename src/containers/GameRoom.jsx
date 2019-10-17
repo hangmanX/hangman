@@ -47,7 +47,7 @@ const mapDispatchToProps = (dispatch) => ({
       .then((res) => res.json())
       .then((obj) => {
         const { question, answer } = obj;
-        console.log('question and answer', question, answer);
+        // console.log('question and answer', question, answer);
         dispatch(actions.newQuestion(question, answer));
       });
   },
