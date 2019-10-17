@@ -47,6 +47,10 @@ module.exports = {
         target: 'http://localhost:3000',
         changeOrigin: true,
       },
+      '/dist/imgs/': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+      },
     },
     disableHostCheck: true,
   },

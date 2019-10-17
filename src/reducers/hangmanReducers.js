@@ -22,13 +22,10 @@ const initialState = {
   hangingPrompts: [
     "I'm having a great day and nothing can go wrong.",
     "Who? Me? I didn't do anything.",
-    "Oh. What's that?",
-    "Who's on trial?",
     "I'm on trial?",
     "I'm guilty?",
     "No. I don't believe it.",
     'Ahh. Help!!',
-    'Glugg.',
     'The End',
   ],
   numberOfFailedGuesses: 0,
@@ -64,6 +61,7 @@ const hangmanReducer = (state = initialState, action) => {
       // async in redux is hard......................
       dbQuestion = action.payloadQuestion;
       dbAnswer = action.payloadAnswer.split('');
+      console.log('answer and db answer in reducer', action.payloadAnswer, dbAnswer);
       displayAnswer = dbAnswer.map(() => '_');
       return {
         ...state, dbQuestion, dbAnswer, displayAnswer,

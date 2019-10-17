@@ -80,3 +80,9 @@ h1 {
 .letterButton:hover {
   box-shadow: 5px 5px 5px darkgray;
 }
+
+img {
+  height: 150px;
+  width: 150px;
+  object-fit: scale-down;
+}
