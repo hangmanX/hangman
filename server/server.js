@@ -25,6 +25,9 @@ const userController = require('./controllers/userController');
 app.use(bodyParser.json());
 app.use(cookieParser());
 
+/**
+ * @description a callback URL that GITHUB redirects a token to
+ */
 app.get('/api/auth/github/callback',
   authController.fetchTokenJSON,
   authController.fetchUserProfile,

@@ -19,7 +19,7 @@ userController.getUser = (req, res, next) => {
     .then(([user, created]) => {
       // user : the user that was found or created in the database
       // created : boolean referring to if user was created or not
-      const { id, name, login, avatar_url } = user;
+      const { id, name, login, avatar_url, wins, losses } = user;
       // overwriting userProfile inside locals
       res.locals.userProfile = {
         ...userProfile,
@@ -27,6 +27,8 @@ userController.getUser = (req, res, next) => {
         name,
         login,
         avatar_url,
+        wins,
+        losses,
       };
       return next();
     })
