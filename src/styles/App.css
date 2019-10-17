@@ -12,6 +12,15 @@ button {
   background-color: lightblue;
 }
 
+#newQButton {
+  background-color: lightgray;
+  color: dimgray;
+  width: 100px;
+  height: 70px;
+  margin: 0 20px;
+  font-size: 1rem;
+}
+
 .letterButton {
   margin-top: 2%;
   background-color: blueviolet;
@@ -43,10 +52,13 @@ h1 {
 }
 
 .clue {
+  display: grid;
+  grid-template: auto / 1fr auto;
   text-align: center;
+  align-items: center;
   background-color: skyblue;
   padding: 15px;
-  height: 50px;
+  height: auto;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
 }
@@ -67,4 +79,10 @@ h1 {
 
 .letterButton:hover {
   box-shadow: 5px 5px 5px darkgray;
+}
+
+img {
+  height: 150px;
+  width: 150px;
+  object-fit: scale-down;
 }

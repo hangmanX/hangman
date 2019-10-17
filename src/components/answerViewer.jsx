@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 
 const AnswerViewer = ({ disp }) => {
@@ -11,15 +12,14 @@ const AnswerViewer = ({ disp }) => {
         className="answerLetter"
         key={i}
       >
-        {disp[i]}
-
+        {`${disp[i]} `}
       </span>,
     );
   }
 
   return (
     <div id="answerViewer">
-      {disp}
+      {dispCharArray}
     </div>
   );
 };

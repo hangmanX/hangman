@@ -20,12 +20,6 @@ export const updateLetter = (letter) => ({
   payload: letter,
 });
 
-export const selectQuestion = () => ({
-  type: types.SELECT_QUESTION,
-  payload: null,
-});
-
-
 // this action is for updating the displayed answer
 export const updateDisplayAnswer = (letter) => ({
   type: types.UPDATE_DISPLAY_ANSWER,
@@ -42,3 +36,20 @@ export const updateRoomsToDisplay = (rooms) => ({
   payload: rooms,
 });
 
+export const checkWin = () => ({
+  type: types.CHECK_WIN,
+  payload: null,
+});
+
+// grab a new question from the mongoDB
+export const newQuestion = (question, answer) => ({
+  type: types.NEW_QUESTION,
+  payloadQuestion: question,
+  payloadAnswer: answer,
+});
+
+// unused
+// export const resetGame = () => ({
+//   type: types.RESET_GAME,
+//   payload: null,
+// });
