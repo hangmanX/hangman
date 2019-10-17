@@ -41,3 +41,4 @@ export const updateRoomsToDisplay = (rooms) => ({
   type: types.LOAD_ROOMS,
   payload: rooms,
 });
+
