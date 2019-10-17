@@ -16,7 +16,7 @@ button {
   background-color: lightgray;
   color: dimgray;
   width: 100px;
-  height: 50px;
+  height: 70px;
   margin: 0 20px;
   font-size: 1rem;
 }
@@ -58,7 +58,7 @@ h1 {
   align-items: center;
   background-color: skyblue;
   padding: 15px;
-  height: 50px;
+  height: auto;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
 }

@@ -43,7 +43,8 @@ export const newQuestion = (question, answer) => ({
   payloadAnswer: answer,
 });
 
-export const resetGame = () => ({
-  type: types.RESET_GAME,
-  payload: null,
-});
+// unused
+// export const resetGame = () => ({
+//   type: types.RESET_GAME,
+//   payload: null,
+// });

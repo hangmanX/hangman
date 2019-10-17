@@ -7,4 +7,5 @@ export const UPDATE_DISPLAY_ANSWER = 'UPDATE_DISPLAY_ANSWER';
 
 export const NEW_QUESTION = 'NEW_QUESTION';
 export const CHECK_WIN = 'CHECK_WIN';
-export const RESET_GAME = 'RESET_GAME';
+// unused
+// export const RESET_GAME = 'RESET_GAME';

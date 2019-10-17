@@ -26,7 +26,7 @@ const initialState = {
     "I'm guilty?",
     "No. I don't believe it.",
     'Ahh. Help!!',
-    'The End',
+    'The End. (Everytime you lose at hangman, a stick family loses a member)',
   ],
   numberOfFailedGuesses: 0,
 };
@@ -111,12 +111,12 @@ const hangmanReducer = (state = initialState, action) => {
         alert('GAME OVER');
       }
       if (state.displayAnswer.join('') === state.dbAnswer.join('')) {
-        alert('WOOOOOOOOOOOOOOOOOOOO');
+        alert('WINNER WINNER CHICKEN DINNER');
       }
       return { ...state };
 
-    case types.RESET_GAME:
-      break;
+    // case types.RESET_GAME:
+    //   break;
     default:
       // console.log('default state', state, action.type);
       // return the initial state if action.type does not match any of these
