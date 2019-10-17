@@ -11,9 +11,12 @@ const User = sequelize.define('user', {
   avatar_url: {
     type: Sequelize.STRING,
   },
-  access_token: {
-    type: Sequelize.STRING,
+  wins: {
+    type: Sequelize.INTEGER,
   },
-});
+  losses: {
+    type: Sequelize.INTEGER,
+  },
+}, { timestamps: false });
 
 module.exports = User;
