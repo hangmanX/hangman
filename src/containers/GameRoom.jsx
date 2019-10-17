@@ -13,7 +13,7 @@ import HangViewer from '../components/hangViewer';
 import * as actions from '../actions/actions';
 
 // https://codeburst.io/isomorphic-web-app-react-js-express-socket-io-e2f03a469cd3
-var socketIO = io("/room");
+// var socketIO = io("/room");
 
 const mapStateToProps = (state) => ({
   letters: state.hangman.letters,
@@ -119,6 +119,9 @@ class GameRoom extends Component {
 
   render() {
     // console.log('props from redux', this.props.letters);
+    // SocketIO.on('testsocket', function (data) {
+    //   console.log("Connected to room", data);
+    // });
   
     // destructure props
     const {
