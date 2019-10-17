@@ -16,7 +16,7 @@ class DefaultContainer extends React.Component {
       <>
         {/* apparently the above is good enough for a fragment */}
         <a
-          href="https://github.com/login/oauth/authorize?client_id=6299af3a88a73b2fd148"
+          href="https://github.com/login/oauth/authorize?client_id=cecbb15649468c524b83"
         >
           Login with Github
         </a>
