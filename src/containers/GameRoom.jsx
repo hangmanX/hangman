@@ -36,6 +36,10 @@ const mapDispatchToProps = (dispatch) => ({
   checkWin() {
     dispatch(actions.checkWin());
   },
+  newQuestion(obj) {
+    const { question, answer } = obj;
+    dispatch(actions.newQuestion(question, answer));
+  },
 });
 
 class GameRoom extends Component {
@@ -49,12 +53,17 @@ class GameRoom extends Component {
   componentDidMount() {
     // destructure props
     const {
-      updateLetter, dbAnswer, updateDisplayAnswer, incrementFailedGuesses,
+      updateLetter, dbAnswer, updateDisplayAnswer, incrementFailedGuesses, newQuestion,
     } = this.props;
 
     // this.socket.on('connect', () => {
     //   console.log('connected to socket');
     // });
+    fetch('/newPrompt')
+      .then((res) => res.json())
+      .then((obj) => {
+        newQuestion(obj);
+      });
 
     // create socket listener for clicked letter
     this.socket.on('clickedLetter', (letter) => {

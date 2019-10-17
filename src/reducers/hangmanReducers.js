@@ -3,14 +3,14 @@
 import * as types from '../constants/actionTypes';
 
 // old
-const gameStore = [
-  [['It is the thing you might cut yourself on if you reach out to touch the world like a ball'],
-    ['m', 'o', 'u', 'n', 't', 'a', 'i', 'n']],
-  [["It's breezy."],
-    ['f', 'l', 'i', 'g', 'h', 't', 'y']],
-  [['It hangs in the sky, before it falls, but you do not want to avoid it.'],
-    ['a', 'p', 'p', 'l', 'e']],
-];
+// const gameStore = [
+//   [['It is the thing you might cut yourself on if you reach out to touch the world like a ball'],
+//     ['m', 'o', 'u', 'n', 't', 'a', 'i', 'n']],
+//   [["It's breezy."],
+//     ['f', 'l', 'i', 'g', 'h', 't', 'y']],
+//   [['It hangs in the sky, before it falls, but you do not want to avoid it.'],
+//     ['a', 'p', 'p', 'l', 'e']],
+// ];
 
 // set up initial state
 const initialState = {
@@ -28,7 +28,7 @@ const initialState = {
     "No. I don't believe it.",
     'Ahh. Help!!',
     'Glugg.',
-    'The End,',
+    'The End',
   ],
   numberOfFailedGuesses: 0,
 };
@@ -47,17 +47,25 @@ initialState.dbAnswer.forEach(() => initialState.displayAnswer.push('_'));
 const hangmanReducer = (state = initialState, action) => {
   // some let variables to be accessible outside of scope of switch
   let letters;
-  // let dbQuestion;
-  // let dbAnswer;
+  let dbQuestion;
+  let dbAnswer;
   let displayAnswer;
   let numberOfFailedGuesses;
-  const maxNumberOfGuesses = state.hangingPrompts.length;
+  const maxNumberOfGuesses = state.hangingPrompts.length - 1;
 
   switch (action.type) {
     // case types.SELECT_QUESTION:
     //   dbQuestion =
     // CAPITALIZE ALL OF THE LETTERS IN THE ANSWER ARRAY
 
+    case types.NEW_QUESTION:
+      // async in redux is hard......................
+      dbQuestion = action.payloadQuestion;
+      dbAnswer = action.payloadAnswer.split('');
+      return { ...state, dbQuestion, dbAnswer };
+
+
+    // eslint-disable-next-line no-fallthrough
     case types.UPDATE_DISPLAY_ANSWER:
       // make shallow copy of display answer array
       displayAnswer = [...state.displayAnswer];
@@ -73,6 +81,7 @@ const hangmanReducer = (state = initialState, action) => {
     case types.INCREMENT_FAILED_GUESSES:
       // increment the failed number of guesses if this is triggered
       numberOfFailedGuesses = state.numberOfFailedGuesses + 1;
+      if (numberOfFailedGuesses > maxNumberOfGuesses) numberOfFailedGuesses = maxNumberOfGuesses + 1;
       return { ...state, numberOfFailedGuesses };
 
     case types.UPDATE_LETTER:
@@ -86,6 +95,8 @@ const hangmanReducer = (state = initialState, action) => {
 
     case types.CHECK_WIN:
       numberOfFailedGuesses = state.numberOfFailedGuesses;
+      // console.log('num guesses', numberOfFailedGuesses);
+      // console.log('max', maxNumberOfGuesses);
       if (numberOfFailedGuesses === maxNumberOfGuesses) {
         alert('GAME OVER');
       }
@@ -94,7 +105,7 @@ const hangmanReducer = (state = initialState, action) => {
       }
       return { ...state };
     default:
-      // console.log('default state', state);
+      // console.log('default state', state, action.type);
       // return the initial state if action.type does not match any of these
       return state;
   }

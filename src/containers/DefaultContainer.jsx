@@ -13,7 +13,8 @@ class DefaultContainer extends React.Component {
 
   render() {
     return (
-      <fragment>
+      <>
+        {/* apparently the above is good enough for a fragment */}
         <a
           href="https://github.com/login/oauth/authorize?client_id=6299af3a88a73b2fd148"
         >
@@ -21,7 +22,7 @@ class DefaultContainer extends React.Component {
         </a>
 
         <h1>Hangman X</h1>
-      </fragment>
+      </>
     );
   }
 }
